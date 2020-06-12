@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyberaray.proxymanager.dao.ServiceInfoMapper">
+    
+    <resultMap type="ServiceInfo" id="ServiceInfoResult">
+        <result property="id"    column="id"    />
+        <result property="sshTannel"    column="ssh_tannel"    />
+        <result property="sshPrikey"    column="ssh_prikey"    />
+        <result property="sshCreateTime"    column="ssh_create_time"    />
+        <result property="sshUpdateTime"    column="ssh_update_time"    />
+        <result property="sshRemark"    column="ssh_remark"    />
+        <result property="v2rayUuid"    column="v2ray_UUID"    />
+        <result property="v2ryIp"    column="v2ry_ip"    />
+        <result property="v2ryPort"    column="v2ry_port"    />
+        <result property="v2rayProtocol"    column="v2ray_protocol"    />
+        <result property="v2rayTls"    column="v2ray_TLS"    />
+        <result property="v2rayCreatetime"    column="v2ray_createtime"    />
+        <result property="v2rayUpdatetime"    column="v2ray_updatetime"    />
+        <result property="v2rayRemark"    column="v2ray_remark"    />
+        <result property="shadowsocksPort"    column="shadowsocks_port"    />
+        <result property="shadowsocksPassword"    column="shadowsocks_password"    />
+        <result property="shadowsocksProtocol"    column="shadowsocks_protocol"    />
+        <result property="shadowsocksConfusion"    column="shadowsocks_confusion"    />
+        <result property="shadowsocksCreatetime"    column="shadowsocks_createtime"    />
+        <result property="shadowsocksUpdatetime"    column="shadowsocks_updatetime"    />
+        <result property="vshadowsocksRemark"    column="vshadowsocks_remark"    />
+        <result property="ffPort"    column="FF_port"    />
+        <result property="ffPem"    column="FF_pem"    />
+        <result property="ffOwnerkey"    column="FF_ownerKey"    />
+        <result property="ffCreatetime"    column="FF_createtime"    />
+        <result property="ffUpdatetime"    column="FF_updatetime"    />
+        <result property="ffRemark"    column="FF_remark"    />
+    </resultMap>
+
+    <sql id="selectServiceInfoVo">
+        select id, ssh_tannel, ssh_prikey, ssh_create_time, ssh_update_time, ssh_remark, v2ray_UUID, v2ry_ip, v2ry_port, v2ray_protocol, v2ray_TLS, v2ray_createtime, v2ray_updatetime, v2ray_remark, shadowsocks_port, shadowsocks_password, shadowsocks_protocol, shadowsocks_confusion, shadowsocks_createtime, shadowsocks_updatetime, vshadowsocks_remark, FF_port, FF_pem, FF_ownerKey, FF_createtime, FF_updatetime, FF_remark from service_info
+    </sql>
+
+    <select id="selectServiceInfoList" parameterType="ServiceInfo" resultMap="ServiceInfoResult">
+        <include refid="selectServiceInfoVo"/>
+        <where>  
+            <if test="sshTannel != null  and sshTannel != ''"> and ssh_tannel = #{sshTannel}</if>
+            <if test="sshPrikey != null  and sshPrikey != ''"> and ssh_prikey = #{sshPrikey}</if>
+            <if test="sshCreateTime != null "> and ssh_create_time = #{sshCreateTime}</if>
+            <if test="sshUpdateTime != null "> and ssh_update_time = #{sshUpdateTime}</if>
+            <if test="sshRemark != null  and sshRemark != ''"> and ssh_remark = #{sshRemark}</if>
+            <if test="v2rayUuid != null  and v2rayUuid != ''"> and v2ray_UUID = #{v2rayUuid}</if>
+            <if test="v2ryIp != null  and v2ryIp != ''"> and v2ry_ip = #{v2ryIp}</if>
+            <if test="v2ryPort != null  and v2ryPort != ''"> and v2ry_port = #{v2ryPort}</if>
+            <if test="v2rayProtocol != null  and v2rayProtocol != ''"> and v2ray_protocol = #{v2rayProtocol}</if>
+            <if test="v2rayTls != null  and v2rayTls != ''"> and v2ray_TLS = #{v2rayTls}</if>
+            <if test="v2rayCreatetime != null "> and v2ray_createtime = #{v2rayCreatetime}</if>
+            <if test="v2rayUpdatetime != null "> and v2ray_updatetime = #{v2rayUpdatetime}</if>
+            <if test="v2rayRemark != null  and v2rayRemark != ''"> and v2ray_remark = #{v2rayRemark}</if>
+            <if test="shadowsocksPort != null  and shadowsocksPort != ''"> and shadowsocks_port = #{shadowsocksPort}</if>
+            <if test="shadowsocksPassword != null  and shadowsocksPassword != ''"> and shadowsocks_password = #{shadowsocksPassword}</if>
+            <if test="shadowsocksProtocol != null  and shadowsocksProtocol != ''"> and shadowsocks_protocol = #{shadowsocksProtocol}</if>
+            <if test="shadowsocksConfusion != null  and shadowsocksConfusion != ''"> and shadowsocks_confusion = #{shadowsocksConfusion}</if>
+            <if test="shadowsocksCreatetime != null "> and shadowsocks_createtime = #{shadowsocksCreatetime}</if>
+            <if test="shadowsocksUpdatetime != null "> and shadowsocks_updatetime = #{shadowsocksUpdatetime}</if>
+            <if test="vshadowsocksRemark != null  and vshadowsocksRemark != ''"> and vshadowsocks_remark = #{vshadowsocksRemark}</if>
+            <if test="ffPort != null  and ffPort != ''"> and FF_port = #{ffPort}</if>
+            <if test="ffPem != null  and ffPem != ''"> and FF_pem = #{ffPem}</if>
+            <if test="ffOwnerkey != null  and ffOwnerkey != ''"> and FF_ownerKey = #{ffOwnerkey}</if>
+            <if test="ffCreatetime != null "> and FF_createtime = #{ffCreatetime}</if>
+            <if test="ffUpdatetime != null "> and FF_updatetime = #{ffUpdatetime}</if>
+            <if test="ffRemark != null  and ffRemark != ''"> and FF_remark = #{ffRemark}</if>
+        </where>
+    </select>
+    
+    <select id="selectServiceInfoById" parameterType="Long" resultMap="ServiceInfoResult">
+        <include refid="selectServiceInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertServiceInfo" parameterType="ServiceInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into service_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sshTannel != null  and sshTannel != ''">ssh_tannel,</if>
+            <if test="sshPrikey != null  and sshPrikey != ''">ssh_prikey,</if>
+            <if test="sshCreateTime != null ">ssh_create_time,</if>
+            <if test="sshUpdateTime != null ">ssh_update_time,</if>
+            <if test="sshRemark != null  and sshRemark != ''">ssh_remark,</if>
+            <if test="v2rayUuid != null  and v2rayUuid != ''">v2ray_UUID,</if>
+            <if test="v2ryIp != null  and v2ryIp != ''">v2ry_ip,</if>
+            <if test="v2ryPort != null  and v2ryPort != ''">v2ry_port,</if>
+            <if test="v2rayProtocol != null  and v2rayProtocol != ''">v2ray_protocol,</if>
+            <if test="v2rayTls != null  and v2rayTls != ''">v2ray_TLS,</if>
+            <if test="v2rayCreatetime != null ">v2ray_createtime,</if>
+            <if test="v2rayUpdatetime != null ">v2ray_updatetime,</if>
+            <if test="v2rayRemark != null  and v2rayRemark != ''">v2ray_remark,</if>
+            <if test="shadowsocksPort != null  and shadowsocksPort != ''">shadowsocks_port,</if>
+            <if test="shadowsocksPassword != null  and shadowsocksPassword != ''">shadowsocks_password,</if>
+            <if test="shadowsocksProtocol != null  and shadowsocksProtocol != ''">shadowsocks_protocol,</if>
+            <if test="shadowsocksConfusion != null  and shadowsocksConfusion != ''">shadowsocks_confusion,</if>
+            <if test="shadowsocksCreatetime != null ">shadowsocks_createtime,</if>
+            <if test="shadowsocksUpdatetime != null ">shadowsocks_updatetime,</if>
+            <if test="vshadowsocksRemark != null  and vshadowsocksRemark != ''">vshadowsocks_remark,</if>
+            <if test="ffPort != null  and ffPort != ''">FF_port,</if>
+            <if test="ffPem != null  and ffPem != ''">FF_pem,</if>
+            <if test="ffOwnerkey != null  and ffOwnerkey != ''">FF_ownerKey,</if>
+            <if test="ffCreatetime != null ">FF_createtime,</if>
+            <if test="ffUpdatetime != null ">FF_updatetime,</if>
+            <if test="ffRemark != null  and ffRemark != ''">FF_remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sshTannel != null  and sshTannel != ''">#{sshTannel},</if>
+            <if test="sshPrikey != null  and sshPrikey != ''">#{sshPrikey},</if>
+            <if test="sshCreateTime != null ">#{sshCreateTime},</if>
+            <if test="sshUpdateTime != null ">#{sshUpdateTime},</if>
+            <if test="sshRemark != null  and sshRemark != ''">#{sshRemark},</if>
+            <if test="v2rayUuid != null  and v2rayUuid != ''">#{v2rayUuid},</if>
+            <if test="v2ryIp != null  and v2ryIp != ''">#{v2ryIp},</if>
+            <if test="v2ryPort != null  and v2ryPort != ''">#{v2ryPort},</if>
+            <if test="v2rayProtocol != null  and v2rayProtocol != ''">#{v2rayProtocol},</if>
+            <if test="v2rayTls != null  and v2rayTls != ''">#{v2rayTls},</if>
+            <if test="v2rayCreatetime != null ">#{v2rayCreatetime},</if>
+            <if test="v2rayUpdatetime != null ">#{v2rayUpdatetime},</if>
+            <if test="v2rayRemark != null  and v2rayRemark != ''">#{v2rayRemark},</if>
+            <if test="shadowsocksPort != null  and shadowsocksPort != ''">#{shadowsocksPort},</if>
+            <if test="shadowsocksPassword != null  and shadowsocksPassword != ''">#{shadowsocksPassword},</if>
+            <if test="shadowsocksProtocol != null  and shadowsocksProtocol != ''">#{shadowsocksProtocol},</if>
+            <if test="shadowsocksConfusion != null  and shadowsocksConfusion != ''">#{shadowsocksConfusion},</if>
+            <if test="shadowsocksCreatetime != null ">#{shadowsocksCreatetime},</if>
+            <if test="shadowsocksUpdatetime != null ">#{shadowsocksUpdatetime},</if>
+            <if test="vshadowsocksRemark != null  and vshadowsocksRemark != ''">#{vshadowsocksRemark},</if>
+            <if test="ffPort != null  and ffPort != ''">#{ffPort},</if>
+            <if test="ffPem != null  and ffPem != ''">#{ffPem},</if>
+            <if test="ffOwnerkey != null  and ffOwnerkey != ''">#{ffOwnerkey},</if>
+            <if test="ffCreatetime != null ">#{ffCreatetime},</if>
+            <if test="ffUpdatetime != null ">#{ffUpdatetime},</if>
+            <if test="ffRemark != null  and ffRemark != ''">#{ffRemark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateServiceInfo" parameterType="ServiceInfo">
+        update service_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sshTannel != null  and sshTannel != ''">ssh_tannel = #{sshTannel},</if>
+            <if test="sshPrikey != null  and sshPrikey != ''">ssh_prikey = #{sshPrikey},</if>
+            <if test="sshCreateTime != null ">ssh_create_time = #{sshCreateTime},</if>
+            <if test="sshUpdateTime != null ">ssh_update_time = #{sshUpdateTime},</if>
+            <if test="sshRemark != null  and sshRemark != ''">ssh_remark = #{sshRemark},</if>
+            <if test="v2rayUuid != null  and v2rayUuid != ''">v2ray_UUID = #{v2rayUuid},</if>
+            <if test="v2ryIp != null  and v2ryIp != ''">v2ry_ip = #{v2ryIp},</if>
+            <if test="v2ryPort != null  and v2ryPort != ''">v2ry_port = #{v2ryPort},</if>
+            <if test="v2rayProtocol != null  and v2rayProtocol != ''">v2ray_protocol = #{v2rayProtocol},</if>
+            <if test="v2rayTls != null  and v2rayTls != ''">v2ray_TLS = #{v2rayTls},</if>
+            <if test="v2rayCreatetime != null ">v2ray_createtime = #{v2rayCreatetime},</if>
+            <if test="v2rayUpdatetime != null ">v2ray_updatetime = #{v2rayUpdatetime},</if>
+            <if test="v2rayRemark != null  and v2rayRemark != ''">v2ray_remark = #{v2rayRemark},</if>
+            <if test="shadowsocksPort != null  and shadowsocksPort != ''">shadowsocks_port = #{shadowsocksPort},</if>
+            <if test="shadowsocksPassword != null  and shadowsocksPassword != ''">shadowsocks_password = #{shadowsocksPassword},</if>
+            <if test="shadowsocksProtocol != null  and shadowsocksProtocol != ''">shadowsocks_protocol = #{shadowsocksProtocol},</if>
+            <if test="shadowsocksConfusion != null  and shadowsocksConfusion != ''">shadowsocks_confusion = #{shadowsocksConfusion},</if>
+            <if test="shadowsocksCreatetime != null ">shadowsocks_createtime = #{shadowsocksCreatetime},</if>
+            <if test="shadowsocksUpdatetime != null ">shadowsocks_updatetime = #{shadowsocksUpdatetime},</if>
+            <if test="vshadowsocksRemark != null  and vshadowsocksRemark != ''">vshadowsocks_remark = #{vshadowsocksRemark},</if>
+            <if test="ffPort != null  and ffPort != ''">FF_port = #{ffPort},</if>
+            <if test="ffPem != null  and ffPem != ''">FF_pem = #{ffPem},</if>
+            <if test="ffOwnerkey != null  and ffOwnerkey != ''">FF_ownerKey = #{ffOwnerkey},</if>
+            <if test="ffCreatetime != null ">FF_createtime = #{ffCreatetime},</if>
+            <if test="ffUpdatetime != null ">FF_updatetime = #{ffUpdatetime},</if>
+            <if test="ffRemark != null  and ffRemark != ''">FF_remark = #{ffRemark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteServiceInfoById" parameterType="Long">
+        delete from service_info where id = #{id}
+    </delete>
+
+    <delete id="deleteServiceInfoByIds" parameterType="String">
+        delete from service_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

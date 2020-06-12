@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div class="panel panel-default" th:fragment="content">
+    <div class="panel-heading">VPS信息列表</div>
+    <table class="table" id="listLinksInfo">
+        <tr><td>ID</td><td>IP</td><td>SSH端口</td><td>SSH账号</td><td>SSH密码</td>
+            <td>SSH隧道</td><td>SSH密钥</td><td>V2RAY端口</td><td>V2RAYID</td><td>V2RAY协议</td>
+            <td>FF端口</td><td>创建时间</td><td>更新时间</td><td>备注</td></tr>
+        <tr  th:each="Vps,VpsStat : ${listVps}">
+            <td th:text="${Vps.id}"></td>
+            <td th:text="${Vps.ip}"></td>
+            <td th:text="${Vps.sshPort}"></td>
+            <td th:text="${Vps.sshAccount}"></td>
+            <td th:text="${Vps.sshPassword}"></td>
+            <td th:text="${Vps.sshTannel}"></td>
+            <td th:text="${Vps.sshPrikey}"></td>
+            <td th:text="${Vps.v2rayPort}"></td>
+            <td th:text="${Vps.v2rayId}"></td>
+            <td th:text="${Vps.v2rayProcotol}"></td>
+            <td th:text="${Vps.ffPort}"></td>
+            <td th:text="${Vps.createTime}"></td>
+            <td th:text="${Vps.updateTime}"></td>
+            <td th:text="${Vps.remarks}"></td>
+            <td><a th:href="'/detailVps/'+${Vps.id}">编辑</a></td>
+            <td><a th:href="'/delVps/'+${Vps.id}">删除</a></td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

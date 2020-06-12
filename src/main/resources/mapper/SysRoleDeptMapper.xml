@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyberaray.proxymanager.dao.SysRoleDeptMapper">
+    
+    <resultMap type="SysRoleDept" id="SysRoleDeptResult">
+        <result property="vpsId"    column="vps_id"    />
+        <result property="serviceId"    column="service_id"    />
+    </resultMap>
+
+    <sql id="selectSysRoleDeptVo">
+        select vps_id, service_id from sys_role_dept
+    </sql>
+
+    <select id="selectSysRoleDeptList" parameterType="SysRoleDept" resultMap="SysRoleDeptResult">
+        <include refid="selectSysRoleDeptVo"/>
+        <where>  
+        </where>
+    </select>
+    
+    <select id="selectSysRoleDeptById" parameterType="Long" resultMap="SysRoleDeptResult">
+        <include refid="selectSysRoleDeptVo"/>
+        where vps_id = #{vpsId}
+    </select>
+        
+    <insert id="insertSysRoleDept" parameterType="SysRoleDept">
+        insert into sys_role_dept
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null ">vps_id,</if>
+            <if test="serviceId != null ">service_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null ">#{vpsId},</if>
+            <if test="serviceId != null ">#{serviceId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysRoleDept" parameterType="SysRoleDept">
+        update sys_role_dept
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="serviceId != null ">service_id = #{serviceId},</if>
+        </trim>
+        where vps_id = #{vpsId}
+    </update>
+
+    <delete id="deleteSysRoleDeptById" parameterType="Long">
+        delete from sys_role_dept where vps_id = #{vpsId}
+    </delete>
+
+    <delete id="deleteSysRoleDeptByIds" parameterType="String">
+        delete from sys_role_dept where vps_id in 
+        <foreach item="vpsId" collection="array" open="(" separator="," close=")">
+            #{vpsId}
+        </foreach>
+    </delete>
+    
+</mapper>

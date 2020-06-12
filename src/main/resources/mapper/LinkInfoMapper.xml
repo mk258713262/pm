@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyberaray.proxymanager.dao.LinkInfoMapper">
+    
+    <resultMap type="LinkInfo" id="LinkInfoResult">
+        <result property="id"    column="id"    />
+        <result property="linkType"    column="link_type"    />
+        <result property="protocolType"    column="protocol_type"    />
+        <result property="ipPort"    column="ip_port"    />
+        <result property="expIp"    column="exp_ip"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectLinkInfoVo">
+        select id, link_type, protocol_type, ip_port, exp_ip, create_time, update_time, remark from link_info
+    </sql>
+
+    <select id="selectLinkInfoList" parameterType="LinkInfo" resultMap="LinkInfoResult">
+        <include refid="selectLinkInfoVo"/>
+        <where>  
+            <if test="linkType != null  and linkType != ''"> and link_type = #{linkType}</if>
+            <if test="protocolType != null  and protocolType != ''"> and protocol_type = #{protocolType}</if>
+            <if test="ipPort != null  and ipPort != ''"> and ip_port = #{ipPort}</if>
+            <if test="expIp != null  and expIp != ''"> and exp_ip = #{expIp}</if>
+        </where>
+    </select>
+    
+    <select id="selectLinkInfoById" parameterType="Long" resultMap="LinkInfoResult">
+        <include refid="selectLinkInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertLinkInfo" parameterType="LinkInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into link_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="linkType != null  and linkType != ''">link_type,</if>
+            <if test="protocolType != null  and protocolType != ''">protocol_type,</if>
+            <if test="ipPort != null  and ipPort != ''">ip_port,</if>
+            <if test="expIp != null  and expIp != ''">exp_ip,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="remark != null  and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="linkType != null  and linkType != ''">#{linkType},</if>
+            <if test="protocolType != null  and protocolType != ''">#{protocolType},</if>
+            <if test="ipPort != null  and ipPort != ''">#{ipPort},</if>
+            <if test="expIp != null  and expIp != ''">#{expIp},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="remark != null  and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLinkInfo" parameterType="LinkInfo">
+        update link_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="linkType != null  and linkType != ''">link_type = #{linkType},</if>
+            <if test="protocolType != null  and protocolType != ''">protocol_type = #{protocolType},</if>
+            <if test="ipPort != null  and ipPort != ''">ip_port = #{ipPort},</if>
+            <if test="expIp != null  and expIp != ''">exp_ip = #{expIp},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLinkInfoById" parameterType="Long">
+        delete from link_info where id = #{id}
+    </delete>
+
+    <delete id="deleteLinkInfoByIds" parameterType="String">
+        delete from link_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
