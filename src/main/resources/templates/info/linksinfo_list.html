@@ -22,19 +22,22 @@
 
 <div class="panel panel-default" th:fragment="content">
   <div class="panel-heading">链路信息列表</div>
+  <a th:href = "@{/addL}">
+  <input type="button" value="link新增" >
+  </a>
   <table class="table" id="listLinksInfo">
   	<tr><td>id</td><td>链路类型</td><td>协议类型</td><td>IP端口</td><td>出口IP</td><td>创建时间</td><td>更新时间</td><td>备注</td></tr>
-  	<tr  th:each="LinkInfo,LinksInfoStat : ${listLinksInfo}">  
+  	<tr  th:each="LinkInfo,LinksInfoStat : ${linkList}">  
                 <td th:text="${LinkInfo.id}"></td>  
-                <td th:text="${LinkInfo.linksType}"></td>  
+                <td th:text="${LinkInfo.linkType}"></td>  
                 <td th:text="${LinkInfo.protocolType}"></td>  
                 <td th:text="${LinkInfo.ipPort}"></td>  
-                <td th:text="${LinkInfo.ipPortOut}"></td>
+                <td th:text="${LinkInfo.expIp}"></td>
                 <td th:text="${LinkInfo.createTime}"></td>
                 <td th:text="${LinkInfo.updateTime}"></td>  
-                <td th:text="${LinkInfo.remarks}"></td>  
-                <td><a th:href="'/detail/'+${LinkInfo.id}">编辑</a></td>  
-                <td><a th:href="'/del/'+${LinkInfo.id}">删除</a></td>  
+                <td th:text="${LinkInfo.remark}"></td>  
+           		<td><a th:href="@{'/detailLinkInfo/'+${LinkInfo.id}}">编辑</a></td>     
+                <td><a th:href="@{'/delLinkInfo/'+${LinkInfo.id}}">删除</a></td>  
      </tr>  
   </table>
   

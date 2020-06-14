@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>链路信息详情</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -20,27 +20,29 @@
 </head>
 <body>
 
-<form th:action="@{/saveU}" method = "post">
+<form th:action="@{/saveUL}" method = "post">
+<input type="hidden" name="_method" value="put" th:if="${linkInfo!=null}">
+<input type="hidden" name="id" th:if="${linkInfo!=null}" th:value="${linkInfo.id}">
 <div class="panel panel-default">
   <div class="panel-heading">链路信息详情</div>
-
   <table class="table" id="linkInfo">
   	<tr>  
         <td>链路类型</td>  
-        <td><input type=text th:value="${linkInfo.linksType}" ></td> 
+        <td><input name="linkType" type=text th:value="${linkInfo!=null}?${linkInfo.linkType}" ></td> 
      </tr>  
      <tr>  
         <td>协议类型</td>  
-        <td><input type=text th:value="${linkInfo.protocolType}"></td> 
+        <td><input name="protocolType" type=text th:value="${linkInfo!=null}?${linkInfo.protocolType}"></td> 
      </tr>
      <tr>  
         <td>IP端口</td>  
-        <td><input type=text th:value="${linkInfo.ipPort}"></td> 
+        <td><input name="ipPort" type=text th:value="${linkInfo!=null}?${linkInfo.ipPort}"></td> 
      </tr>
       <tr>  
         <td>出口IP</td>  
-        <td><input type=text th:value="${linkInfo.ipPortOut}"></td> 
+        <td><input name="expIp" type=text th:value="${linkInfo!=null}?${linkInfo.expIp}"></td> 
      </tr>
+     <!-- 
      <tr>  
         <td>创建时间</td>  
         <td><input type=text th:value="${linkInfo.createTime}" disabled = "disabled"></td>
@@ -49,9 +51,10 @@
         <td>更新时间</td>  
         <td><input type=text th:value="${linkInfo.updateTime}" disabled = "disabled"></td>
      </tr>
+      -->
      <tr>  
         <td>备注</td>  
-        <td><input type=text th:value="${linkInfo.remarks}"></td>
+        <td><input name="remark" type=text th:value="${linkInfo!=null}?${linkInfo.remark}"></td>
      </tr>   
      <tr>
         <td align="right"></td>
@@ -59,7 +62,7 @@
         <a >
         <input type="submit" value="提交" >
         </a>
-		<a th:href = "@{/to_list_a}">
+		<a th:href = "@{/index}">
         <input type="button" value="返回">
         </a>
         </td>

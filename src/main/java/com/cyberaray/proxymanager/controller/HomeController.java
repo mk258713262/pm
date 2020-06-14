@@ -1,4 +1,4 @@
-package com.cyberaray.proxymanager.controller;
+	package com.cyberaray.proxymanager.controller;
 
 import com.cyberaray.proxymanager.annotation.LoginRequired;
 import com.cyberaray.proxymanager.entity.LinkInfo;
@@ -8,8 +8,9 @@ import com.cyberaray.proxymanager.entity.VpsInfo;
 import com.cyberaray.proxymanager.service.ILinkInfoService;
 import com.cyberaray.proxymanager.service.IServiceInfoService;
 import com.cyberaray.proxymanager.service.IVpsInfoService;
-import com.cyberaray.proxymanager.service.Impl.VpsInfoServiceImpl;
+
 import com.cyberaray.proxymanager.service.UserService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class HomeController {
@@ -37,6 +37,7 @@ public class HomeController {
     private ILinkInfoService linkInfoService;
     @Autowired
     private IServiceInfoService serviceInfoService;
+    
     @LoginRequired
     @RequestMapping(path = "/index",method = RequestMethod.GET)
     public String getIndexPage(HttpServletRequest httpServletRequest, Model model )
@@ -58,5 +59,69 @@ public class HomeController {
 
     @RequestMapping(path = "/denied",method = RequestMethod.GET)
     public String getDeninedPage(){return "/error/404";}
-
+    
+    
+    @RequestMapping(path = "/delLinkInfo/{linkInfoId}" , method = RequestMethod.GET)
+    public String delLinkInfo(HttpServletRequest request,@PathVariable("linkInfoId")long linkInfoId){
+    	linkInfoService.deleteLinkInfoById(linkInfoId);
+    	return "redirect:/index";
+    }
+    
+    @RequestMapping(value="/detailLinkInfo/{linkInfoId}",method = RequestMethod.GET)
+    public String getLinkDetail(HttpServletRequest request,Model model,
+    		@PathVariable("linkInfoId")long linkInfoId) {
+    	LinkInfo linkInfo = linkInfoService.selectLinkInfoById(linkInfoId);
+    	model.addAttribute("linkInfo", linkInfo);
+    	return "/info/linkinfo_detail";
+    }
+    
+    @RequestMapping("/saveUL")
+    public String saveUL(LinkInfo linkInfo){
+    	System.out.println(linkInfo.getId());
+    	System.out.println(linkInfo.getLinkType());
+    	if(linkInfo.getId() == null ){
+    		linkInfoService.insertLinkInfo(linkInfo);
+    	}else{
+    		linkInfoService.updateLinkInfo(linkInfo);
+    	}
+    	return "redirect:/index";
+    }
+    
+    @RequestMapping(value="/addL")
+    public String addL(){
+    	return "/info/linkinfo_detail";
+    }
+    
+    @RequestMapping(path="/delVps/{vpsId}" , method = RequestMethod.GET)
+    public String delVpsInfo(@PathVariable("vpsId")long vpsId){
+    	vpsInfoService.deleteVpsInfoById(vpsId);
+    	return "redirect:/index";
+    }
+    
+    @RequestMapping(value="/detailVps/{vpsId}",method = RequestMethod.GET)
+    public String getVpsDetail(HttpServletRequest request,Model model,
+    		@PathVariable("vpsId")long vpsId) {
+    	VpsInfo vpsInfo = vpsInfoService.selectVpsInfoById(vpsId);
+    	model.addAttribute("vpsInfo", vpsInfo);
+    	return "/info/vps_detail";
+    }
+    
+    @RequestMapping("/saveUV")
+    public String saveUV(VpsInfo vpsInfo){
+    	System.out.println(vpsInfo.getId());
+    	System.out.println(vpsInfo.getName());
+    	if(vpsInfo.getId() == null){
+    		vpsInfoService.insertVpsInfo(vpsInfo);
+    	}else{
+    		vpsInfoService.updateVpsInfo(vpsInfo);
+    	}
+    	
+    	return "redirect:/index";
+    }
+    
+    @RequestMapping(value="/addV")
+    public String addV(){
+    	return "/info/vps_detail";
+    }
+    
 }

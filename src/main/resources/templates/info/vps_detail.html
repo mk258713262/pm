@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>VPS信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- jquery -->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- jquery-validator -->
+    <script type="text/javascript" th:src="@{/jquery-validation/jquery.validate.min.js}"></script>
+    <script type="text/javascript" th:src="@{/jquery-validation/localization/messages_zh.min.js}"></script>
+    <!-- layer -->
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <!-- md5.js -->
+    <script type="text/javascript" th:src="@{/js/md5.min.js}"></script>
+    <!-- common.js -->
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+</head>
+<body>
+
+<form th:action="@{/saveUV}" method = "post">
+<input type="hidden" name="_method" value="put" th:if="${vpsInfo!=null}">
+<input type="hidden" name="id" th:if="${vpsInfo!=null}" th:value="${vpsInfo.id}">
+<div class="panel panel-default">
+  <div class="panel-heading">VPS信息详情</div>
+
+  <table class="table" id="vpsInfo">
+  	<tr>  
+        <td>Vps名称</td>  
+        <td><input type=text id="name" name="name" th:value="${vpsInfo!=null}?${vpsInfo.name}" ></td> 
+     </tr>  
+     <tr>  
+        <td>Vps购买平台</td>  
+        <td><input type=text id="platform" name="platform" th:value="${vpsInfo!=null}?${vpsInfo.platform}"></td> 
+     </tr>
+     <tr>  
+        <td>Vps核心数</td>  
+        <td><input type=text  id="core" name="core" th:value="${vpsInfo!=null}?${vpsInfo.core}"></td> 
+     </tr>
+      <tr>  
+        <td>Vps内存</td>  
+        <td><input type=text  id="memory" name="memory" th:value="${vpsInfo!=null}?${vpsInfo.memory}"></td> 
+     </tr>
+     <tr>  
+        <td>Vps带宽</td>  
+        <td><input type=text  id="bandwidth" name="bandwidth" th:value="${vpsInfo!=null}?${vpsInfo.bandwidth}" ></td>
+     </tr>
+     <tr>  
+        <td>Vps月流量</td>  
+        <td><input type=text  id="streamflow" name="streamflow" th:value="${vpsInfo!=null}?${vpsInfo.streamflow}"></td>
+     </tr>
+     <tr>  
+        <td>Vps_port</td>  
+        <td><input type=text  id="sshport" name="sshport" th:value="${vpsInfo!=null}?${vpsInfo.sshport}"></td>
+     </tr>   
+          <tr>  
+        <td>Vps_ip</td>  
+        <td><input type=text  id="sship" name="sship" th:value="${vpsInfo!=null}?${vpsInfo.sship}" ></td>
+     </tr>
+     <tr>  
+        <td>Vps管理账号</td>  
+        <td><input type=text  id="sshuser" name="sshuser" th:value="${vpsInfo!=null}?${vpsInfo.sshuser}" ></td>
+     </tr>
+     <tr>  
+        <td>Vps管理密码</td>  
+        <td><input type=text  id="sshpassword" name="sshpassword" th:value="${vpsInfo!=null}?${vpsInfo.sshpassword}"></td>
+     </tr>  
+          <tr>  
+        <td>Vps管理密钥</td>  
+        <td><input type=text  id="sshpem" name="sshpem" th:value="${vpsInfo!=null}?${vpsInfo.sshpem}" ></td>
+     </tr>   
+          <tr>  
+        <td>Vps是否可用</td>  
+        <td><input type=text  id="state" name="state" th:value="${vpsInfo!=null}?${vpsInfo.state}" ></td>
+     </tr>
+     <tr>  
+        <td>Vps在线状态</td>  
+        <td><input type=text  id="online" name="online" th:value="${vpsInfo!=null}?${vpsInfo.online}" ></td>
+     </tr> 
+     <!-- 
+     <tr>  
+        <td>创建时间</td>  
+        <td><input type=text  th:value="${vpsInfo.createTime}" ></td>
+     </tr>   
+          <tr>  
+        <td>更新时间</td>  
+        <td><input type=text  th:value="${vpsInfo.updateTime}" ></td>
+     </tr>
+      -->
+     <tr>  
+        <td>备注</td>  
+        <td><input type=text  id="remark" name="remark" th:value="${vpsInfo!=null}?${vpsInfo.remark}" ></td>
+     </tr> 
+     <tr>
+        <td align="right"></td>
+        <td>
+        <a th:href = "@{/saveV}">
+        <input type="submit" value="提交" >
+        </a>
+		<a th:href = "@{/index}">
+        <input type="button" value="返回">
+        </a>
+        </td>
+     </tr>
+  </table>
+</div>
+</form>
+</body>
+
+</html>
