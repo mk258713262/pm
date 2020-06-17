@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyberaray.proxymanager.dao.ServiceV2rayMapper">
+    
+    <resultMap type="ServiceV2ray" id="ServiceV2rayResult">
+        <result property="id"    column="id"    />
+        <result property="vpsId"    column="vps_id"    />
+        <result property="v2rayUuid"    column="UUID"    />
+        <result property="v2ryIp"    column="v2ry_ip"    />
+        <result property="v2ryPort"    column="v2ry_port"    />
+        <result property="v2rayProtocol"    column="protocol"    />
+        <result property="v2rayTls"    column="TLS"    />
+        <result property="v2rayCreatetime"    column="createtime"    />
+        <result property="v2rayUpdatetime"    column="updatetime"    />
+        <result property="v2rayRemark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectServiceV2rayVo">
+        select id, vps_id, UUID, v2ry_ip, v2ry_port, protocol, TLS, createtime, updatetime, remark from service_v2ray
+    </sql>
+
+    <select id="selectServiceV2rayList" parameterType="ServiceV2ray" resultMap="ServiceV2rayResult">
+        <include refid="selectServiceV2rayVo"/>
+        <where>  
+            <if test="vpsId != null "> and vps_id = #{vpsId}</if>
+            <if test="v2rayUuid != null  and v2rayUuid != ''"> and UUID = #{v2rayUuid}</if>
+            <if test="v2ryIp != null  and v2ryIp != ''"> and v2ry_ip = #{v2ryIp}</if>
+            <if test="v2ryPort != null  and v2ryPort != ''"> and v2ry_port = #{v2ryPort}</if>
+            <if test="v2rayProtocol != null  and v2rayProtocol != ''"> and protocol = #{v2rayProtocol}</if>
+            <if test="v2rayTls != null  and v2rayTls != ''"> and TLS = #{v2rayTls}</if>
+            <if test="v2rayCreatetime != null "> and createtime = #{v2rayCreatetime}</if>
+            <if test="v2rayUpdatetime != null "> and updatetime = #{v2rayUpdatetime}</if>
+            <if test="v2rayRemark != null  and v2rayRemark != ''"> and remark = #{v2rayRemark}</if>
+        </where>
+    </select>
+    
+    <select id="selectServiceV2rayById" parameterType="Long" resultMap="ServiceV2rayResult">
+        <include refid="selectServiceV2rayVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertServiceV2ray" parameterType="ServiceV2ray" useGeneratedKeys="true" keyProperty="id">
+        insert into service_v2ray
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null ">vps_id,</if>
+            <if test="v2rayUuid != null  and v2rayUuid != ''">UUID,</if>
+            <if test="v2ryIp != null  and v2ryIp != ''">v2ry_ip,</if>
+            <if test="v2ryPort != null  and v2ryPort != ''">v2ry_port,</if>
+            <if test="v2rayProtocol != null  and v2rayProtocol != ''">protocol,</if>
+            <if test="v2rayTls != null  and v2rayTls != ''">TLS,</if>
+            <if test="v2rayCreatetime != null ">createtime,</if>
+            <if test="v2rayUpdatetime != null ">updatetime,</if>
+            <if test="v2rayRemark != null  and v2rayRemark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null ">#{vpsId},</if>
+            <if test="v2rayUuid != null  and v2rayUuid != ''">#{v2rayUuid},</if>
+            <if test="v2ryIp != null  and v2ryIp != ''">#{v2ryIp},</if>
+            <if test="v2ryPort != null  and v2ryPort != ''">#{v2ryPort},</if>
+            <if test="v2rayProtocol != null  and v2rayProtocol != ''">#{v2rayProtocol},</if>
+            <if test="v2rayTls != null  and v2rayTls != ''">#{v2rayTls},</if>
+            <if test="v2rayCreatetime != null ">#{v2rayCreatetime},</if>
+            <if test="v2rayUpdatetime != null ">#{v2rayUpdatetime},</if>
+            <if test="v2rayRemark != null  and v2rayRemark != ''">#{v2rayRemark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateServiceV2ray" parameterType="ServiceV2ray">
+        update service_v2ray
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vpsId != null ">vps_id = #{vpsId},</if>
+            <if test="v2rayUuid != null  and v2rayUuid != ''">UUID = #{v2rayUuid},</if>
+            <if test="v2ryIp != null  and v2ryIp != ''">v2ry_ip = #{v2ryIp},</if>
+            <if test="v2ryPort != null  and v2ryPort != ''">v2ry_port = #{v2ryPort},</if>
+            <if test="v2rayProtocol != null  and v2rayProtocol != ''">protocol = #{v2rayProtocol},</if>
+            <if test="v2rayTls != null  and v2rayTls != ''">TLS = #{v2rayTls},</if>
+            <if test="v2rayCreatetime != null ">createtime = #{v2rayCreatetime},</if>
+            <if test="v2rayUpdatetime != null ">updatetime = #{v2rayUpdatetime},</if>
+            <if test="v2rayRemark != null  and v2rayRemark != ''">remark = #{v2rayRemark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteServiceV2rayById" parameterType="Long">
+        delete from service_v2ray where id = #{id}
+    </delete>
+
+    <delete id="deleteServiceV2rayByIds" parameterType="String">
+        delete from service_v2ray where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

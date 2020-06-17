@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyberaray.proxymanager.dao.ServiceFfMapper">
+    
+    <resultMap type="ServiceFf" id="ServiceFfResult">
+        <result property="id"    column="id"    />
+        <result property="vpsId"    column="vps_id"    />
+        <result property="ffPort"    column="port"    />
+        <result property="ffPem"    column="pem"    />
+        <result property="ffOwnerkey"    column="ownerKey"    />
+        <result property="ffCreatetime"    column="createtime"    />
+        <result property="ffUpdatetime"    column="updatetime"    />
+        <result property="ffRemark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectServiceFfVo">
+        select id, vps_id, port, pem, ownerKey, createtime, updatetime, remark from service_ff
+    </sql>
+
+    <select id="selectServiceFfList" parameterType="ServiceFf" resultMap="ServiceFfResult">
+        <include refid="selectServiceFfVo"/>
+        <where>  
+            <if test="vpsId != null "> and vps_id = #{vpsId}</if>
+            <if test="ffPort != null  and ffPort != ''"> and port = #{ffPort}</if>
+            <if test="ffPem != null  and ffPem != ''"> and pem = #{ffPem}</if>
+            <if test="ffOwnerkey != null  and ffOwnerkey != ''"> and ownerKey = #{ffOwnerkey}</if>
+            <if test="ffCreatetime != null "> and createtime = #{ffCreatetime}</if>
+            <if test="ffUpdatetime != null "> and updatetime = #{ffUpdatetime}</if>
+            <if test="ffRemark != null  and ffRemark != ''"> and remark = #{ffRemark}</if>
+        </where>
+    </select>
+    
+    <select id="selectServiceFfById" parameterType="Long" resultMap="ServiceFfResult">
+        <include refid="selectServiceFfVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertServiceFf" parameterType="ServiceFf" useGeneratedKeys="true" keyProperty="id">
+        insert into service_ff
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null ">vps_id,</if>
+            <if test="ffPort != null  and ffPort != ''">port,</if>
+            <if test="ffPem != null  and ffPem != ''">pem,</if>
+            <if test="ffOwnerkey != null  and ffOwnerkey != ''">ownerKey,</if>
+            <if test="ffCreatetime != null ">createtime,</if>
+            <if test="ffUpdatetime != null ">updatetime,</if>
+            <if test="ffRemark != null  and ffRemark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null ">#{vpsId},</if>
+            <if test="ffPort != null  and ffPort != ''">#{ffPort},</if>
+            <if test="ffPem != null  and ffPem != ''">#{ffPem},</if>
+            <if test="ffOwnerkey != null  and ffOwnerkey != ''">#{ffOwnerkey},</if>
+            <if test="ffCreatetime != null ">#{ffCreatetime},</if>
+            <if test="ffUpdatetime != null ">#{ffUpdatetime},</if>
+            <if test="ffRemark != null  and ffRemark != ''">#{ffRemark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateServiceFf" parameterType="ServiceFf">
+        update service_ff
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vpsId != null ">vps_id = #{vpsId},</if>
+            <if test="ffPort != null  and ffPort != ''">port = #{ffPort},</if>
+            <if test="ffPem != null  and ffPem != ''">pem = #{ffPem},</if>
+            <if test="ffOwnerkey != null  and ffOwnerkey != ''">ownerKey = #{ffOwnerkey},</if>
+            <if test="ffCreatetime != null ">createtime = #{ffCreatetime},</if>
+            <if test="ffUpdatetime != null ">updatetime = #{ffUpdatetime},</if>
+            <if test="ffRemark != null  and ffRemark != ''">remark = #{ffRemark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteServiceFfById" parameterType="Long">
+        delete from service_ff where id = #{id}
+    </delete>
+
+    <delete id="deleteServiceFfByIds" parameterType="String">
+        delete from service_ff where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

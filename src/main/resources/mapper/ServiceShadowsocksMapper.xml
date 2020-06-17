@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyberaray.proxymanager.dao.ServiceShadowsocksMapper">
+    
+    <resultMap type="ServiceShadowsocks" id="ServiceShadowsocksResult">
+        <result property="id"    column="id"    />
+        <result property="vpsId"    column="vps_id"    />
+        <result property="shadowsocksPort"    column="port"    />
+        <result property="shadowsocksPassword"    column="password"    />
+        <result property="shadowsocksProtocol"    column="protocol"    />
+        <result property="shadowsocksConfusion"    column="confusion"    />
+        <result property="shadowsocksCreatetime"    column="createtime"    />
+        <result property="shadowsocksUpdatetime"    column="updatetime"    />
+        <result property="shadowsocksRemark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectServiceShadowsocksVo">
+        select id, vps_id, port, password, protocol, confusion, createtime, updatetime, remark from service_shadowsocks
+    </sql>
+
+    <select id="selectServiceShadowsocksList" parameterType="ServiceShadowsocks" resultMap="ServiceShadowsocksResult">
+        <include refid="selectServiceShadowsocksVo"/>
+        <where>  
+            <if test="vpsId != null "> and vps_id = #{vpsId}</if>
+            <if test="shadowsocksPort != null  and shadowsocksPort != ''"> and port = #{shadowsocksPort}</if>
+            <if test="shadowsocksPassword != null  and shadowsocksPassword != ''"> and password = #{shadowsocksPassword}</if>
+            <if test="shadowsocksProtocol != null  and shadowsocksProtocol != ''"> and protocol = #{shadowsocksProtocol}</if>
+            <if test="shadowsocksConfusion != null  and shadowsocksConfusion != ''"> and confusion = #{shadowsocksConfusion}</if>
+            <if test="shadowsocksCreatetime != null "> and createtime = #{shadowsocksCreatetime}</if>
+            <if test="shadowsocksUpdatetime != null "> and updatetime = #{shadowsocksUpdatetime}</if>
+            <if test="shadowsocksRemark != null  and shadowsocksRemark != ''"> and remark = #{shadowsocksRemark}</if>
+        </where>
+    </select>
+    
+    <select id="selectServiceShadowsocksById" parameterType="Long" resultMap="ServiceShadowsocksResult">
+        <include refid="selectServiceShadowsocksVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertServiceShadowsocks" parameterType="ServiceShadowsocks" useGeneratedKeys="true" keyProperty="id">
+        insert into service_shadowsocks
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null ">vps_id,</if>
+            <if test="shadowsocksPort != null  and shadowsocksPort != ''">port,</if>
+            <if test="shadowsocksPassword != null  and shadowsocksPassword != ''">password,</if>
+            <if test="shadowsocksProtocol != null  and shadowsocksProtocol != ''">protocol,</if>
+            <if test="shadowsocksConfusion != null  and shadowsocksConfusion != ''">confusion,</if>
+            <if test="shadowsocksCreatetime != null ">createtime,</if>
+            <if test="shadowsocksUpdatetime != null ">updatetime,</if>
+            <if test="shadowsocksRemark != null  and shadowsocksRemark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null ">#{vpsId},</if>
+            <if test="shadowsocksPort != null  and shadowsocksPort != ''">#{shadowsocksPort},</if>
+            <if test="shadowsocksPassword != null  and shadowsocksPassword != ''">#{shadowsocksPassword},</if>
+            <if test="shadowsocksProtocol != null  and shadowsocksProtocol != ''">#{shadowsocksProtocol},</if>
+            <if test="shadowsocksConfusion != null  and shadowsocksConfusion != ''">#{shadowsocksConfusion},</if>
+            <if test="shadowsocksCreatetime != null ">#{shadowsocksCreatetime},</if>
+            <if test="shadowsocksUpdatetime != null ">#{shadowsocksUpdatetime},</if>
+            <if test="shadowsocksRemark != null  and shadowsocksRemark != ''">#{shadowsocksRemark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateServiceShadowsocks" parameterType="ServiceShadowsocks">
+        update service_shadowsocks
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vpsId != null ">vps_id = #{vpsId},</if>
+            <if test="shadowsocksPort != null  and shadowsocksPort != ''">port = #{shadowsocksPort},</if>
+            <if test="shadowsocksPassword != null  and shadowsocksPassword != ''">password = #{shadowsocksPassword},</if>
+            <if test="shadowsocksProtocol != null  and shadowsocksProtocol != ''">protocol = #{shadowsocksProtocol},</if>
+            <if test="shadowsocksConfusion != null  and shadowsocksConfusion != ''">confusion = #{shadowsocksConfusion},</if>
+            <if test="shadowsocksCreatetime != null ">createtime = #{shadowsocksCreatetime},</if>
+            <if test="shadowsocksUpdatetime != null ">updatetime = #{shadowsocksUpdatetime},</if>
+            <if test="shadowsocksRemark != null  and shadowsocksRemark != ''">remark = #{shadowsocksRemark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteServiceShadowsocksById" parameterType="Long">
+        delete from service_shadowsocks where id = #{id}
+    </delete>
+
+    <delete id="deleteServiceShadowsocksByIds" parameterType="String">
+        delete from service_shadowsocks where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

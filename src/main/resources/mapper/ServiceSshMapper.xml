@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyberaray.proxymanager.dao.ServiceSshMapper">
+    
+    <resultMap type="ServiceSsh" id="ServiceSshResult">
+        <result property="id"    column="id"    />
+        <result property="vpsId"    column="vps_id"    />
+        <result property="sshTannel"    column="tannel"    />
+        <result property="sshPrikey"    column="prikey"    />
+        <result property="sshCreateTime"    column="create_time"    />
+        <result property="sshUpdateTime"    column="update_time"    />
+        <result property="sshRemark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectServiceSshVo">
+        select id, vps_id, tannel, prikey, create_time, update_time, remark from service_ssh
+    </sql>
+
+    <select id="selectServiceSshList" parameterType="ServiceSsh" resultMap="ServiceSshResult">
+        <include refid="selectServiceSshVo"/>
+        <where>  
+            <if test="vpsId != null "> and vps_id = #{vpsId}</if>
+            <if test="sshTannel != null  and sshTannel != ''"> and tannel = #{sshTannel}</if>
+            <if test="sshPrikey != null  and sshPrikey != ''"> and prikey = #{sshPrikey}</if>
+            <if test="sshCreateTime != null "> and create_time = #{sshCreateTime}</if>
+            <if test="sshUpdateTime != null "> and update_time = #{sshUpdateTime}</if>
+            <if test="sshRemark != null  and sshRemark != ''"> and remark = #{sshRemark}</if>
+        </where>
+    </select>
+    
+    <select id="selectServiceSshById" parameterType="Long" resultMap="ServiceSshResult">
+        <include refid="selectServiceSshVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertServiceSsh" parameterType="ServiceSsh" useGeneratedKeys="true" keyProperty="id">
+        insert into service_ssh
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null ">vps_id,</if>
+            <if test="sshTannel != null  and sshTannel != ''">tannel,</if>
+            <if test="sshPrikey != null  and sshPrikey != ''">prikey,</if>
+            <if test="sshCreateTime != null ">create_time,</if>
+            <if test="sshUpdateTime != null ">update_time,</if>
+            <if test="sshRemark != null  and sshRemark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null ">#{vpsId},</if>
+            <if test="sshTannel != null  and sshTannel != ''">#{sshTannel},</if>
+            <if test="sshPrikey != null  and sshPrikey != ''">#{sshPrikey},</if>
+            <if test="sshCreateTime != null ">#{sshCreateTime},</if>
+            <if test="sshUpdateTime != null ">#{sshUpdateTime},</if>
+            <if test="sshRemark != null  and sshRemark != ''">#{sshRemark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateServiceSsh" parameterType="ServiceSsh">
+        update service_ssh
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vpsId != null ">vps_id = #{vpsId},</if>
+            <if test="sshTannel != null  and sshTannel != ''">tannel = #{sshTannel},</if>
+            <if test="sshPrikey != null  and sshPrikey != ''">prikey = #{sshPrikey},</if>
+            <if test="sshCreateTime != null ">create_time = #{sshCreateTime},</if>
+            <if test="sshUpdateTime != null ">update_time = #{sshUpdateTime},</if>
+            <if test="sshRemark != null  and sshRemark != ''">remark = #{sshRemark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteServiceSshById" parameterType="Long">
+        delete from service_ssh where id = #{id}
+    </delete>
+
+    <delete id="deleteServiceSshByIds" parameterType="String">
+        delete from service_ssh where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
