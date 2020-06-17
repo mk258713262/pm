@@ -10,6 +10,7 @@ import com.cyberaray.proxymanager.entity.SysRoleDept;
  * @author mok
  * @date 2020-06-10
  */
+@Deprecated
 public interface ISysRoleDeptService 
 {
     /**

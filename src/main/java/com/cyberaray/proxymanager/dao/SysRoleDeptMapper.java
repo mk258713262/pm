@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
+@Deprecated
 public interface SysRoleDeptMapper {
     /**
      * 查询vps和服务关联

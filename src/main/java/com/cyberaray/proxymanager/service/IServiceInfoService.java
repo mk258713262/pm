@@ -10,6 +10,7 @@ import com.cyberaray.proxymanager.entity.ServiceInfo;
  * @author mok
  * @date 2020-06-10
  */
+@Deprecated
 public interface IServiceInfoService 
 {
     /**

@@ -10,6 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author mok
  * @date 2020-06-10
  */
+@Deprecated
 public class ServiceInfo
 {
     private static final long serialVersionUID = 1L;

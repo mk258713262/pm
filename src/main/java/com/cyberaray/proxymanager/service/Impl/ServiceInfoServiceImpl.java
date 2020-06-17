@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @date 2020-06-10
  */
 @Service
+@Deprecated
 public class ServiceInfoServiceImpl implements IServiceInfoService
 {
     @Autowired

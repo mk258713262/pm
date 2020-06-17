@@ -1,6 +1,6 @@
 package com.cyberaray.proxymanager.service;
 
-import com.cyberaray.proxymanager.entity.ServiceFf;
+import com.cyberaray.proxymanager.entity.ServiceFF;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @author mok
  * @date 2020-06-16
  */
-public interface IServiceFfService 
+public interface IServiceFFService
 {
     /**
      * 查询ff服务
@@ -19,7 +19,7 @@ public interface IServiceFfService
      * @param id ff服务ID
      * @return ff服务
      */
-    public ServiceFf selectServiceFfById(Long id);
+    public ServiceFF selectServiceFFById(Long id);
 
     /**
      * 查询ff服务列表
@@ -27,7 +27,7 @@ public interface IServiceFfService
      * @param serviceFf ff服务
      * @return ff服务集合
      */
-    public List<ServiceFf> selectServiceFfList(ServiceFf serviceFf);
+    public List<ServiceFF> selectServiceFFList(ServiceFF serviceFf);
 
     /**
      * 新增ff服务
@@ -35,7 +35,7 @@ public interface IServiceFfService
      * @param serviceFf ff服务
      * @return 结果
      */
-    public int insertServiceFf(ServiceFf serviceFf);
+    public int insertServiceFF(ServiceFF serviceFf);
 
     /**
      * 修改ff服务
@@ -43,7 +43,7 @@ public interface IServiceFfService
      * @param serviceFf ff服务
      * @return 结果
      */
-    public int updateServiceFf(ServiceFf serviceFf);
+    public int updateServiceFF(ServiceFF serviceFf);
 
     /**
      * 批量删除ff服务
@@ -51,7 +51,7 @@ public interface IServiceFfService
      * @param ids 需要删除的ff服务ID
      * @return 结果
      */
-    public int deleteServiceFfByIds(Long[] ids);
+    public int deleteServiceFFByIds(Long[] ids);
 
     /**
      * 删除ff服务信息
@@ -59,5 +59,5 @@ public interface IServiceFfService
      * @param id ff服务ID
      * @return 结果
      */
-    public int deleteServiceFfById(Long id);
+    public int deleteServiceFFById(Long id);
 }

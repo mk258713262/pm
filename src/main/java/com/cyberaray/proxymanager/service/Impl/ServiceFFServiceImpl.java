@@ -2,9 +2,9 @@ package com.cyberaray.proxymanager.service.Impl;
 
 import java.util.List;
 
-import com.cyberaray.proxymanager.dao.ServiceFfMapper;
-import com.cyberaray.proxymanager.entity.ServiceFf;
-import com.cyberaray.proxymanager.service.IServiceFfService;
+import com.cyberaray.proxymanager.dao.ServiceFFMapper;
+import com.cyberaray.proxymanager.entity.ServiceFF;
+import com.cyberaray.proxymanager.service.IServiceFFService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
  * @date 2020-06-16
  */
 @Service
-public class ServiceFfServiceImpl implements IServiceFfService
+public class ServiceFFServiceImpl implements IServiceFFService
 {
     @Autowired
-    private ServiceFfMapper serviceFfMapper;
+    private ServiceFFMapper serviceFFMapper;
 
     /**
      * 查询ff服务
@@ -27,21 +27,21 @@ public class ServiceFfServiceImpl implements IServiceFfService
      * @return ff服务
      */
     @Override
-    public ServiceFf selectServiceFfById(Long id)
+    public ServiceFF selectServiceFFById(Long id)
     {
-        return serviceFfMapper.selectServiceFfById(id);
+        return serviceFFMapper.selectServiceFfById(id);
     }
 
     /**
      * 查询ff服务列表
      * 
-     * @param serviceFf ff服务
+     * @param serviceFF ff服务
      * @return ff服务
      */
     @Override
-    public List<ServiceFf> selectServiceFfList(ServiceFf serviceFf)
+    public List<ServiceFF> selectServiceFFList(ServiceFF serviceFF)
     {
-        return serviceFfMapper.selectServiceFfList(serviceFf);
+        return serviceFFMapper.selectServiceFfList(serviceFF);
     }
 
     /**
@@ -51,9 +51,9 @@ public class ServiceFfServiceImpl implements IServiceFfService
      * @return 结果
      */
     @Override
-    public int insertServiceFf(ServiceFf serviceFf)
+    public int insertServiceFF(ServiceFF serviceFf)
     {
-        return serviceFfMapper.insertServiceFf(serviceFf);
+        return serviceFFMapper.insertServiceFf(serviceFf);
     }
 
     /**
@@ -63,9 +63,9 @@ public class ServiceFfServiceImpl implements IServiceFfService
      * @return 结果
      */
     @Override
-    public int updateServiceFf(ServiceFf serviceFf)
+    public int updateServiceFF(ServiceFF serviceFf)
     {
-        return serviceFfMapper.updateServiceFf(serviceFf);
+        return serviceFFMapper.updateServiceFf(serviceFf);
     }
 
     /**
@@ -75,9 +75,9 @@ public class ServiceFfServiceImpl implements IServiceFfService
      * @return 结果
      */
     @Override
-    public int deleteServiceFfByIds(Long[] ids)
+    public int deleteServiceFFByIds(Long[] ids)
     {
-        return serviceFfMapper.deleteServiceFfByIds(ids);
+        return serviceFFMapper.deleteServiceFfByIds(ids);
     }
 
     /**
@@ -87,8 +87,8 @@ public class ServiceFfServiceImpl implements IServiceFfService
      * @return 结果
      */
     @Override
-    public int deleteServiceFfById(Long id)
+    public int deleteServiceFFById(Long id)
     {
-        return serviceFfMapper.deleteServiceFfById(id);
+        return serviceFFMapper.deleteServiceFfById(id);
     }
 }

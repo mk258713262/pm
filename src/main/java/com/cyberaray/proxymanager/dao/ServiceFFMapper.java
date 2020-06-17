@@ -1,6 +1,6 @@
 package com.cyberaray.proxymanager.dao;
 
-import com.cyberaray.proxymanager.entity.ServiceFf;
+import com.cyberaray.proxymanager.entity.ServiceFF;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2020-06-16
  */
 @Mapper
-public interface ServiceFfMapper 
+public interface ServiceFFMapper
 {
     /**
      * 查询ff服务
@@ -20,7 +20,7 @@ public interface ServiceFfMapper
      * @param id ff服务ID
      * @return ff服务
      */
-    public ServiceFf selectServiceFfById(Long id);
+    public ServiceFF selectServiceFfById(Long id);
 
     /**
      * 查询ff服务列表
@@ -28,7 +28,7 @@ public interface ServiceFfMapper
      * @param serviceFf ff服务
      * @return ff服务集合
      */
-    public List<ServiceFf> selectServiceFfList(ServiceFf serviceFf);
+    public List<ServiceFF> selectServiceFfList(ServiceFF serviceFf);
 
     /**
      * 新增ff服务
@@ -36,7 +36,7 @@ public interface ServiceFfMapper
      * @param serviceFf ff服务
      * @return 结果
      */
-    public int insertServiceFf(ServiceFf serviceFf);
+    public int insertServiceFf(ServiceFF serviceFf);
 
     /**
      * 修改ff服务
@@ -44,7 +44,7 @@ public interface ServiceFfMapper
      * @param serviceFf ff服务
      * @return 结果
      */
-    public int updateServiceFf(ServiceFf serviceFf);
+    public int updateServiceFf(ServiceFF serviceFf);
 
     /**
      * 删除ff服务

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
+@Deprecated
 public class ServicesController {
     @Autowired
     private IServiceInfoService serviceInfoService;

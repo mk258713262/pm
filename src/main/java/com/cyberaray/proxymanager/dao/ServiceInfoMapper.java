@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
+@Deprecated
 public interface ServiceInfoMapper {
     /**
      * 查询服务类型

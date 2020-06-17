@@ -7,6 +7,7 @@ package com.cyberaray.proxymanager.entity;
  * @author mok
  * @date 2020-06-10
  */
+@Deprecated
 public class SysRoleDept
 {
     private static final long serialVersionUID = 1L;

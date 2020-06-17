@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author mok
  * @date 2020-06-16
  */
-public class ServiceFf
+public class ServiceFF
 {
     private static final long serialVersionUID = 1L;
 
