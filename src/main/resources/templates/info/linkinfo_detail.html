@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<form th:action="@{/saveUL}" method = "post">
+<form th:action="@{/saveLink}" method = "post">
 <input type="hidden" name="_method" value="put" th:if="${linkInfo!=null}">
 <input type="hidden" name="id" th:if="${linkInfo!=null}" th:value="${linkInfo.id}">
 <div class="panel panel-default">

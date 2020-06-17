@@ -4,12 +4,15 @@ import com.cyberaray.proxymanager.dao.UserMapper;
 import com.cyberaray.proxymanager.entity.User;
 import com.cyberaray.proxymanager.service.UserService;
 import com.cyberaray.proxymanager.util.PlatformUtil;
+import com.cyberaray.proxymanager.util.RedisKeyUtil;
 import com.google.code.kaptcha.Producer;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static com.cyberaray.proxymanager.util.PlatformConstant.*;
 
@@ -40,6 +44,9 @@ public class LoginController {
     @Autowired
     private Producer kaptchaProducer;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @RequestMapping(path = "/register",method = RequestMethod.GET)
     public String getRegisterPage(){
         return "/site/register";
@@ -54,7 +61,7 @@ public class LoginController {
     public String register(Model model, User user){
         Map<String, Object> map = userService.register(user);
         if (map == null || map.isEmpty()) {
-            model.addAttribute("msg", "注册成功,我们已经向您的邮箱发送了一封激活邮件,请尽快激活!");
+            //model.addAttribute("msg", "注册成功,我们已经向您的邮箱发送了一封激活邮件,请尽快激活!");
             model.addAttribute("target", "/index");
             return "/site/operate-result";
         } else {
@@ -83,14 +90,14 @@ public class LoginController {
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login(String username, String password, String code, boolean rememberme,
-                        Model model, HttpSession session, HttpServletResponse response,
+                        Model model, HttpServletResponse response,
                         @CookieValue("kaptchaOwner") String kaptchaOwner){
-        String kaptcha = (String) session.getAttribute("kaptcha");
-//        String kaptcha = null;
-//        if (StringUtils.isNotBlank(kaptchaOwner)) {
-//            String redisKey = RedisKeyUtil.getKaptchaKey(kaptchaOwner);
-//            kaptcha = (String) redisTemplate.opsForValue().get(redisKey);
-//        }
+
+        String kaptcha = null;
+        if (StringUtils.isNotBlank(kaptchaOwner)) {
+            String redisKey = RedisKeyUtil.getKaptchaKey(kaptchaOwner);
+            kaptcha = (String) redisTemplate.opsForValue().get(redisKey);
+        }
 
         if (StringUtils.isBlank(kaptcha) || StringUtils.isBlank(code) || !kaptcha.equalsIgnoreCase(code)) {
             model.addAttribute("codeMsg", "验证码不正确!");
@@ -112,19 +119,21 @@ public class LoginController {
     }
     // 获取验证码
     @RequestMapping(path = "/kaptcha",method = RequestMethod.GET)
-    public void getKaptcha(HttpServletResponse response, HttpSession httpSession){
+    public void getKaptcha(HttpServletResponse response){
         //生成验证码
         String kaptcha = kaptchaProducer.createText();
         BufferedImage bufferedImage = kaptchaProducer.createImage(kaptcha);
-        // 将验证码存入session
-        httpSession.setAttribute("kaptcha",kaptcha);
-        // 验证码的归属
+
+        // 将验证码存入Redis,验证码的归属
         String kaptchaOwner = PlatformUtil.generateUUID();
         Cookie cookie = new Cookie("kaptchaOwner",kaptchaOwner);
         cookie.setPath(contextPath);
         cookie.setMaxAge(60);
         response.addCookie(cookie);
         // 将验证码存入Redis
+        String residKey = RedisKeyUtil.getKaptchaKey(kaptchaOwner);
+        redisTemplate.opsForValue().set(residKey,kaptcha,60, TimeUnit.SECONDS);
+
         // 将图片输出给浏览器
         response.setContentType("image/png");
         try {
@@ -137,7 +146,7 @@ public class LoginController {
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public String logout(@CookieValue("ticket") String ticket) {
         userService.logout(ticket);
-       // SecurityContextHolder.clearContext();
+        SecurityContextHolder.clearContext();
         return "redirect:/login";
     }
 }

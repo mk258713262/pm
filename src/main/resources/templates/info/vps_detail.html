@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<form th:action="@{/saveUV}" method = "post">
+<form th:action="@{/saveVps}" method = "post">
 <input type="hidden" name="_method" value="put" th:if="${vpsInfo!=null}">
 <input type="hidden" name="id" th:if="${vpsInfo!=null}" th:value="${vpsInfo.id}">
 <div class="panel panel-default">

@@ -8,14 +8,14 @@
 
 <div class="panel panel-default" th:fragment="content">
     <div class="panel-heading">VPS信息列表</div>
-    <a th:href = "@{/addV}">
+    <a th:href = "@{/addVps}">
  	<input type="button" value="VPS新增" >
  	</a>
     <table class="table" id="listLinksInfo">
         <tr><td>ID</td><td>Vps名称</td><td>Vps购买平台</td><td>Vps核心数</td>
             <td>Vps内存</td><td>Vps带宽</td><td>Vps月流量</td><td>Vps_ip</td><td>Vps_port</td>
             <td>Vps管理账号</td><td>Vps管理密码</td><td>Vps管理密钥</td><td>Vps是否可用</td>
-            <td>Vps在线状态</td><td>创建时间</td><td>更新时间</td><td>备注</td></tr>
+            <td>Vps在线状态</td><td>创建时间</td><td>更新时间</td><td>备注</td><td>操作</td></tr>
         <tr  th:each="Vps,VpsStat : ${vpsList}">
             <td th:text="${Vps.id}"></td>
             <td th:text="${Vps.name}"></td>
@@ -34,8 +34,8 @@
             <td th:text="${Vps.createTime}"></td>
             <td th:text="${Vps.updateTime}"></td>
             <td th:text="${Vps.remark}"></td>
-       		<td><a th:href="@{'/detailVps/'+${Vps.id}}">编辑</a></td>	
-            <td><a th:href="@{'/delVps/'+${Vps.id}}">删除</a></td>
+       		<td><a th:href="@{'/detailVps/'+${Vps.id}}">编辑</a>
+                <a th:href="@{'/delVps/'+${Vps.id}}">删除</a></td>
         </tr>
     </table>
 
