@@ -1,6 +1,7 @@
 package com.cyberaray.proxymanager.config;
 
 import com.cyberaray.proxymanager.annotation.LoginRequired;
+import com.cyberaray.proxymanager.controller.interceptor.DataInterceptor;
 import com.cyberaray.proxymanager.controller.interceptor.LoginRequiredInterceptor;
 import com.cyberaray.proxymanager.controller.interceptor.LoginTicketInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +18,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private LoginRequiredInterceptor loginRequiredInterceptor;
 
+    @Autowired
+    private DataInterceptor dataInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(loginTicketInterceptor)
                 .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
         registry.addInterceptor(loginRequiredInterceptor)
                 .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
+        registry.addInterceptor(dataInterceptor)
+                .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
     }
-
-
-
-
 }
